@@ -13,7 +13,7 @@
 void I2C_DATA_START()
 {
   /* Generate a START condition to transfer the control word to CODEC */
-    I2C1_I2CR |= IE;     //I2C Enable 
+        I2C1_I2CR |= IE;     //I2C Enable 
 	I2C1_I2CR |= IIE;    //I2C interrupt Enable
 	I2C1_I2CR |= TXAK;   //Transmit ack Enable
 	I2C1_I2CR |= MTX;   //Master config
