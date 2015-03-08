@@ -336,9 +336,20 @@ void main()
 	* DMA config   //Word Size config  etc */
 	
 	
-    Initi_CODEC();
+       Initi_CODEC();
 
 	Config_I2S();          // config SSI to operate in I2S  mode
+	CHIP_SEL_0 = 0;
+	CHIP_SEL_1 = 0;
+	Config_GPIO(CHIP_SEL_0, CHIP_SEL_1);  //Any two IO pins of the processor can be used to act as select signals
+	Write_Codec(0x10,0x00);  //ADC1 of CodecA Power Up
+	
+	
+	CHIP_SEL_0 = 0;
+	CHIP_SEL_1 = 1;
+	Config_GPIO(CHIP_SEL_0, CHIP_SEL_1);  //Any two IO pins of the processor can be used to act as select signals
+	Write_Codec(0x15,0x00);  //DAC1 Power of CodecB Power UP
+	
 	
 	while(1)    //Infinite loop to keep the processor active and prevent from exiting
 	{
