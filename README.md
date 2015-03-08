@@ -1,14 +1,14 @@
 # Test
 This repo consists of main.c and main.h
 
-The code contains main functions which are required to interface Imx6 processor with multiple audio Codec.
+The code contains important functions which are required to interface Imx6 processor with multiple audio Codec.
 
 
 
 CS4244 codec:
-# I have developed the code based on th below algorithm
+I have developed the code based on the below algorithm
 
-Interfacing the audio with processors rquires 2 steps 
+Interfacing the audio codec with processor rquires 2 steps 
    1. Configure the codec using I2C
    2. Send/Receive audio data via I2S 
 Configuring via I2C requires the following sequence
@@ -33,7 +33,7 @@ For Multiple Codec:
 An MUX/DEMUX is used for high frequencing switching betwen COdec A and COdec B so that data can be read from A and send to B for Playback
 
 
-The code ignore many basic GPIO and Interrupt config and focuses mainly on the functions required to implement th above algorithm using IMX6 Dual Lite Processor
+This code ignore many basic GPIO and Interrupt config and focuses mainly on the functions required to implement the above algorithm using IMX6 Dual Lite Processor
 
 The repo includes the datasheet to which I have reffered to develop this application.
 ###################################################################################################
