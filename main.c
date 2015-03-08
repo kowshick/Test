@@ -242,8 +242,7 @@ void I2S_RCV(unit32_t DMA_Tx_req)
   
 }
 
-/*Pragma vector for DMA interrupt handler... ( I have given some meaningful name for the service routine as I donot 
- * know the exact handler. ISR is triggered when DMA operation is complete**/
+
  
  
  void Init_CODEC()
@@ -307,15 +306,16 @@ void AUDIO_RCV_TRANS()
 	Config_GPIO(CHIP_SEL_0, CHIP_SEL_1);  //Any two IO pins of the processor can be used to act as select signals
 	I2S_SEND();           //The data send to CODECB  (Audio to CODECB)
 }
-
+/*Pragma vector for DMA interrupt handler... ( I have given some meaningful name for the service routine as I donot 
+ * know the exact handler. ISR is triggered when DMA operation is complete**/
 #pragma ___ISR_DMA_IRQHandler(void)     
 { 
-  if (!RRDY)    //DMA status flag;  SET when Busy receiving
+  if (RRDY)    //DMA status flag;  SET when RX complte
   {
     RxStatus = 0;  //indicate the DMA RX is compelete
-	DataTemp = SSI1_SRX1 ;   //Data received from the codec A
+    DataTemp = SSI1_SRX1 ;   //Data received from the codec A
   } 
-  if (!TRDY)    //DMA status flag; RESET when Busy Tranmitting
+  if (TRDY)    //DMA status flag; SET when TX complete
   {
     TxStatus = 0;  //indicate the DMA TX is compelete
   }
