@@ -300,10 +300,13 @@ static void AUDIO_RCV_TRANS()
 	CHIP_SEL_1 = 0;
 	Config_GPIO(CHIP_SEL_0, CHIP_SEL_1);  //Any two IO pins of the processor can be used to act as select signals
 	I2S_RCV();            	 //The data receive register is updated in the DMA handler (Audio from CODECA)
-	
+   	
 	CHIP_SEL_0 = 0;
 	CHIP_SEL_1 = 1;
 	Config_GPIO(CHIP_SEL_0, CHIP_SEL_1);  //Any two IO pins of the processor can be used to act as select signals
+	SSI1_SRX1
+	while(RxStatus);
+	SSI1_STX1=DataTemp;    //wait until receive is complete and update the Tx buffer to be trasmitted
 	I2S_SEND();           //The data send to CODECB  (Audio to CODECB)
 }
 /*Pragma vector for DMA interrupt handler... ( I have given some meaningful name for the service routine as I donot 
@@ -313,7 +316,7 @@ static void AUDIO_RCV_TRANS()
   if (RRDY)    //DMA status flag;  SET when RX complte
   {
     RxStatus = 0;  //indicate the DMA RX is compelete
-    DataTemp = SSI1_SRX1 ;   //Data received from the codec A
+    DataTemp = (uint16_t)SSI1_SRX1 ;   //Data received from the codec A
   } 
   if (TRDY)    //DMA status flag; SET when TX complete
   {
