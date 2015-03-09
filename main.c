@@ -10,7 +10,7 @@
   
   
   
-void I2C_DATA_START()
+static void I2C_DATA_START()
 {
   /* Generate a START condition to transfer the control word to CODEC */
         I2C1_I2CR |= IE;     //I2C Enable 
@@ -18,7 +18,7 @@ void I2C_DATA_START()
 	I2C1_I2CR |= TXAK;   //Transmit ack Enable
 	I2C1_I2CR |= MTX;   //Master config
 }
-void I2C_SEND_ADDR(uint8_t Address, uint8_t I2C_Direction)
+static void I2C_SEND_ADDR(uint8_t Address, uint8_t I2C_Direction)
 {
 
   /* Configure I2C to Transmit or Receive*/
@@ -37,20 +37,20 @@ void I2C_SEND_ADDR(uint8_t Address, uint8_t I2C_Direction)
   I2C1_I2DR = Address;   // send the address
 }
 
-void I2C_SEND_DATA( uint8_t Data)
+static void I2C_SEND_DATA( uint8_t Data)
 {
   /* Update the register with the data to be sent */
   I2C1_I2DR = Data;
 }
 
-uint8_t I2C_Data_RECV()
+static uint8_t I2C_Data_RECV()
 {
   /* Return the data in the DR register */
   return (uint8_t)I2C1_IDR;
 }
 
 
-void I2C_STOP()
+static void I2C_STOP()
 {
 	I2C1_I2CR & = ~ 0x0080;  // Clear IE bit ; Bit 7 of Control Register
 }
@@ -115,7 +115,7 @@ uint32_t Write_Codec(uint8_t REG_ADDR, uint8_t REG_VALUE)
  * Read Codec Chip Register contents
  * *********************************/
 
-uint32_t Read_Codec(uint8_t REG_ADDR)
+static uint32_t Read_Codec(uint8_t REG_ADDR)
 {
   uint32_t RECV_BYTE = 0;
   
@@ -171,7 +171,7 @@ void I2C_CONFIG_ACK(unit8_t CLR_BIT)
 	I2C1_I2CR | =  0x03; /Set TXAK bit of control register
 }
 
- void Config_I2S(bool STAT )
+static  void Config_I2S(bool STAT )
 {
   if(STAT)
   {
@@ -194,7 +194,7 @@ void I2C_CONFIG_ACK(unit8_t CLR_BIT)
 //I2S in Master mode has a fixed WL = 32 bits.
 		
 }
-void Init_I2S_DMA(unit32_t  DMA_req, bool STAT)
+static void Init_I2S_DMA(unit32_t  DMA_req, bool STAT)
 {
 	if (STAT)
 	SSI1_IER  |= DMA_req  //  DMA of Rx or Tx FIFO is enabled
@@ -204,7 +204,7 @@ void Init_I2S_DMA(unit32_t  DMA_req, bool STAT)
 
 // Sends the data available in DMA FIFO buffer
 
-void I2S_Send(unit32_t DMA_Tx_req)
+static void I2S_Send(unit32_t DMA_Tx_req)
 {
   /* Enable the I2S TX DMA request */
   Init_I2S_DMA(DMA_Tx_req, ENABLE);
@@ -223,7 +223,7 @@ void I2S_Send(unit32_t DMA_Tx_req)
 }
 
 //Receives the data into DMA Rx FIFO buffer
-void I2S_RCV(unit32_t DMA_Tx_req)
+static void I2S_RCV(unit32_t DMA_Tx_req)
 {
   /* Enable the I2S TX DMA request */
   Init_I2S_DMA(DMA_Rx_req, ENABLE);
@@ -245,7 +245,7 @@ void I2S_RCV(unit32_t DMA_Tx_req)
 
  
  
- void Init_CODEC()
+static  void Init_CODEC()
 {
 		/****************************************************************************
 	 * Using a 32bit MUX/DEMUX with 2 bit select signal it is possible to interface
@@ -294,7 +294,7 @@ void I2S_RCV(unit32_t DMA_Tx_req)
  * Function that alternates the selection between CODECA 
  * and CODECB to receive and send audo */
  
-void AUDIO_RCV_TRANS()
+static void AUDIO_RCV_TRANS()
 {
 	CHIP_SEL_0 = 0;
 	CHIP_SEL_1 = 0;
