@@ -31,9 +31,13 @@ Then enable the ADC/DAC channel using the above seq of the codec to rceive or se
 For Multiple Codec:
 
 An MUX/DEMUX is used for high frequencing switching betwen COdec A and COdec B so that data can be read from A and send to B for Playback
-
-
-This code ignore many basic GPIO and Interrupt config and focuses mainly on the functions required to implement the above algorithm using IMX6 Dual Lite Processor
+******************
+(Another Solution I could think of which can be implemented is :
+1.Differentiate the codecA and Codec B using 'Device ID' and Read Digital data from CodecA on Read Cycle (Rising edge of MCLK)and Send DAta to CodecB on Write Cycle Falling edge of MCLK)
+If I work little more this I can try implement it. But to explain you that I have understood the functioning of protocols I am just proposing the solution
+**************
+Note:
+This code ignore many basic GPIO and NIVC external Interrupt config and focuses mainly on the functions required to implement the above algorithm using IMX6 Dual Lite Processor
 
 The repo includes the datasheet to which I have reffered to develop this application.
 ###################################################################################################
