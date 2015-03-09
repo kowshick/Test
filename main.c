@@ -209,7 +209,7 @@ static void I2S_Send(unit32_t DMA_Tx_req)
   /* Enable the I2S TX DMA request */
   Init_I2S_DMA(DMA_Tx_req, ENABLE);
   
-  /* Enable the SPI1 Master peripheral */
+  /* Enable the SSI1 Master peripheral */
   Config_I2S(ENABLE);
 
   /* Wait until Trasnsfer is complete*/
@@ -218,7 +218,7 @@ static void I2S_Send(unit32_t DMA_Tx_req)
   /* Disable the I2S TX DMA request */
   Init_I2S_DMA(DMA_Tx_req, DISABLE);
   
-  /* Disable the SPI1 Master peripheral */
+  /* Disable the SSI1 Master peripheral */
   Config_I2S(DISABLE);
 }
 
@@ -228,7 +228,7 @@ static void I2S_RCV(unit32_t DMA_Tx_req)
   /* Enable the I2S TX DMA request */
   Init_I2S_DMA(DMA_Rx_req, ENABLE);
   
-  /* Enable the SPI1 Master peripheral */
+  /* Enable the SSI1 Master peripheral */
   Config_I2S(ENABLE);
 
   /* Wait until Trasnsfer is complete*/
@@ -237,7 +237,7 @@ static void I2S_RCV(unit32_t DMA_Tx_req)
   /* Disable the I2S RX DMA request */
   Init_I2S_DMA(DMA_Rx_req, DISABLE);
   
-  /* Disable the SPI1 Master peripheral */
+  /* Disable the SSI1 Master peripheral */
   Config_I2S(DISABLE);
   
 }
@@ -335,7 +335,7 @@ void main()
 	* those configuration steps, I will just describe in simple terms
 	* Clock config  // Scale the clocks MCLK (Main Clock ) and (SCLK-Sub Main Clk) ; freq of MCLK > freq of SCLK 
 	* GPIO config   // config General Prpose IO pins to SSI functions
-	* SPI config    // Config frequency
+	* SSI config    // Config frequency
 	* DMA config   //Word Size config  etc */
 	
 	
